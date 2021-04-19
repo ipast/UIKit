@@ -1,6 +1,7 @@
 package com.ipast.uikit.file
 
 import android.text.TextUtils
+import android.webkit.MimeTypeMap
 import java.io.*
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
@@ -33,11 +34,49 @@ object FileUtil {
         if (TextUtils.isEmpty(srcPath)) {
             return -1
         }
-        val srcFile= File(srcPath)
+        val srcFile = File(srcPath)
         return if (!srcFile.exists()) {
             -1
         } else srcFile.length()
 
+    }
+
+    /**
+     * 获取文件扩展名
+     *
+     * @param filename
+     * @return
+     */
+    fun getExtensionName(filename: String?): String {
+        if (filename != null && filename.isNotEmpty()) {
+            val dot = filename.lastIndexOf('.')
+            if (dot > -1 && dot < filename.length - 1) {
+                return filename.substring(dot + 1)
+            }
+        }
+        return ""
+    }
+
+    /**
+     * 获取文件类型
+     *
+     * @param filePath
+     * @return
+     */
+    fun getMimeType(filePath: String): String {
+        var type: String = ""
+        if (TextUtils.isEmpty(filePath)) {
+            return type
+        }
+        val extension: String = getExtensionName(filePath.toLowerCase())
+        if (!TextUtils.isEmpty(extension)) {
+            val mime = MimeTypeMap.getSingleton()
+            type = mime.getMimeTypeFromExtension(extension)!!
+        }
+        if (TextUtils.isEmpty(type) && filePath.endsWith("aac")) {
+            type = "audio/aac"
+        }
+        return type
     }
 
     /**
