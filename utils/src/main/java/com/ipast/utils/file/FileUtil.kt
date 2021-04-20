@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.webkit.MimeTypeMap
 import com.ipast.utils.date.DateUtil
 import java.io.*
+import java.math.BigDecimal
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.util.*
@@ -246,7 +247,39 @@ object FileUtil {
             null
         }
     }
-
+    /**
+     * 格式化单位
+     *
+     * @param size
+     * @return
+     */
+    fun getFormatSize(size: Double): String {
+        val kiloByte = size / 1024
+        if (kiloByte < 1) {
+            return "0K"
+        }
+        val megaByte = kiloByte / 1024
+        if (megaByte < 1) {
+            val result1 = kiloByte.toBigDecimal()
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
+                .toPlainString() + "KB"
+        }
+        val gigaByte = megaByte / 1024
+        if (gigaByte < 1) {
+            val result2 = megaByte.toBigDecimal()
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
+                .toPlainString() + "MB"
+        }
+        val teraBytes = gigaByte / 1024
+        if (teraBytes < 1) {
+            val result3 = gigaByte.toBigDecimal()
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
+                .toPlainString() + "GB"
+        }
+        val result4 = teraBytes.toBigDecimal()
+        return (result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
+                + "TB")
+    }
     /**
      * 删除指定文件
      *
