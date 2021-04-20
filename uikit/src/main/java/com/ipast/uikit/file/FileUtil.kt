@@ -2,10 +2,10 @@ package com.ipast.uikit.file
 
 import android.text.TextUtils
 import android.webkit.MimeTypeMap
+import com.ipast.uikit.date.DateUtil
 import java.io.*
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -122,6 +122,42 @@ object FileUtil {
             }
         }
         return -1
+    }
+
+    fun append(path: String, content: String): Long {
+        return append(content.toByteArray(), path)
+    }
+
+    /**
+     * 把数据保存到文件系统中，并且返回其大小
+     *
+     * @param data
+     * @param filePath
+     * @return 如果保存失败, 则返回-1
+     */
+    fun append(data: ByteArray, filePath: String,): Long {
+        if (TextUtils.isEmpty(filePath)) {
+            return -1
+        }
+        val f = File(filePath)
+
+        if (!f.parentFile.exists()) { // 如果不存在上级文件夹
+            f.parentFile.mkdirs()
+        }
+        try {
+            if (!f.exists()) {
+                f.createNewFile()
+            }
+            var raf: RandomAccessFile? = null
+            raf = RandomAccessFile(f, "rw")
+            raf.seek(f.length())
+            raf.write(data)
+            raf.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return -1
+        }
+        return f.length()
     }
 
     /**
@@ -282,14 +318,21 @@ object FileUtil {
     }
 
     /**
+     * 获取当前时间的文件名前缀
+     * @return String
+     */
+    fun getFileNamePrefix(): String {
+        return DateUtil.formatDate("yyyyMMddHHmmss")
+    }
+
+    /**
      * 获取随机文件名
      * @return
      */
     fun getRandomFileName(): String {
-        val format = SimpleDateFormat("yyyyMMddHHmmss")
-        val formatDate = format.format(Date())
+
         val random = Random().nextInt(100)
-        return StringBuffer().append(formatDate).append(random).toString()
+        return StringBuffer().append(getFileNamePrefix()).append(random).toString()
     }
 
 }
