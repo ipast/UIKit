@@ -136,7 +136,7 @@ object FileUtil {
      * @param filePath
      * @return 如果保存失败, 则返回-1
      */
-    fun append(data: ByteArray, filePath: String,): Long {
+    fun append(data: ByteArray, filePath: String): Long {
         if (TextUtils.isEmpty(filePath)) {
             return -1
         }
@@ -247,6 +247,7 @@ object FileUtil {
             null
         }
     }
+
     /**
      * 格式化单位
      *
@@ -254,32 +255,44 @@ object FileUtil {
      * @return
      */
     fun getFormatSize(size: Double): String {
+        return getFormatSize(size)
+    }
+
+    /**
+     *
+     * @param size Double
+     * @param precision Int 精度
+     * @return String
+     */
+
+    fun getFormatSize(size: Double, precision: Int): String {
         val kiloByte = size / 1024
-        if (kiloByte < 1) {
+        if (kiloByte <= 0) {
             return "0K"
         }
         val megaByte = kiloByte / 1024
         if (megaByte < 1) {
             val result1 = kiloByte.toBigDecimal()
-            return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
+            return result1.setScale(precision, BigDecimal.ROUND_HALF_UP)
                 .toPlainString() + "KB"
         }
         val gigaByte = megaByte / 1024
         if (gigaByte < 1) {
             val result2 = megaByte.toBigDecimal()
-            return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
+            return result2.setScale(precision, BigDecimal.ROUND_HALF_UP)
                 .toPlainString() + "MB"
         }
         val teraBytes = gigaByte / 1024
         if (teraBytes < 1) {
             val result3 = gigaByte.toBigDecimal()
-            return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
+            return result3.setScale(precision, BigDecimal.ROUND_HALF_UP)
                 .toPlainString() + "GB"
         }
         val result4 = teraBytes.toBigDecimal()
-        return (result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
+        return (result4.setScale(precision, BigDecimal.ROUND_HALF_UP).toPlainString()
                 + "TB")
     }
+
     /**
      * 删除指定文件
      *
