@@ -1,4 +1,4 @@
-package com.ipast.uikit.date
+package com.ipast.utils.date
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat

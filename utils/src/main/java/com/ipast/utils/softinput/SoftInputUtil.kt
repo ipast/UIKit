@@ -1,4 +1,4 @@
-package com.ipast.uikit.softinput
+package com.ipast.utils.softinput
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager

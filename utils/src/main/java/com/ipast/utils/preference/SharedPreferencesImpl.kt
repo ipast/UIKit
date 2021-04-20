@@ -1,4 +1,4 @@
-package com.ipast.uikit.preference
+package com.ipast.utils.preference
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor

@@ -4,8 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ipast.uikit.date.DateUtil
-import com.ipast.uikit.file.FileUtil
+import com.ipast.utils.date.DateUtil
+import com.ipast.utils.file.FileUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
 

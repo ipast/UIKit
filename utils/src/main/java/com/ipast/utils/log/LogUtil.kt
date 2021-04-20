@@ -1,4 +1,4 @@
-package com.ipast.uikit.log
+package com.ipast.utils.log
 
 import android.text.TextUtils
 import android.util.Log

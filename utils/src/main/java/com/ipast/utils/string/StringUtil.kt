@@ -1,4 +1,4 @@
-package com.ipast.uikit.string
+package com.ipast.utils.string
 
 import android.graphics.Paint
 import android.graphics.Rect

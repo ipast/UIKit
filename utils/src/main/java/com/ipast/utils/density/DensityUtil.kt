@@ -1,4 +1,4 @@
-package com.ipast.uikit.density
+package com.ipast.utils.density
 
 import android.annotation.SuppressLint
 import android.content.Context

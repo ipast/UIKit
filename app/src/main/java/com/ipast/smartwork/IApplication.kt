@@ -1,7 +1,7 @@
 package com.ipast.smartwork
 
 import android.app.Application
-import com.ipast.uikit.ecrash.CrashHandler
+import com.ipast.utils.ecrash.CrashHandler
 
 /**
  * @author gang.cheng

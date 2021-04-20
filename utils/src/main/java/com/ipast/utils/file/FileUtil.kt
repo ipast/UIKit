@@ -1,8 +1,8 @@
-package com.ipast.uikit.file
+package com.ipast.utils.file
 
 import android.text.TextUtils
 import android.webkit.MimeTypeMap
-import com.ipast.uikit.date.DateUtil
+import com.ipast.utils.date.DateUtil
 import java.io.*
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel

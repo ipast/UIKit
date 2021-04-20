@@ -1,4 +1,4 @@
-package com.ipast.uikit.ecrash
+package com.ipast.utils.ecrash
 
 import android.content.Context
 import android.content.pm.PackageManager
