@@ -255,7 +255,7 @@ object FileUtil {
      * @return
      */
     fun getFormatSize(size: Double): String {
-        return getFormatSize(size)
+        return getFormatSize(size,2)
     }
 
     /**
