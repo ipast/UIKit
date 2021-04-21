@@ -94,11 +94,13 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
         pw.println(time)
         collectDeviceInfo(pw)
         pw.println()
-        var cause = e.cause
+        //ex.getCause().printStackTrace(pw);
+        e.printStackTrace(pw)
+      /*  var cause = e.cause
         while (cause != null) {
             cause.printStackTrace(pw)
             cause = cause.cause
-        }
+        }*/
         pw.close()
     }
 
