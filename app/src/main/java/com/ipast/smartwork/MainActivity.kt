@@ -3,17 +3,33 @@ package com.ipast.smartwork
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ipast.utils.date.DateUtil
 import com.ipast.utils.file.FileUtil
+import com.ipast.utils.log.LogUtil
+import com.ipast.utils.screen.ScreenBrightUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
+    private var brightness=0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        test()
+        brightness=ScreenBrightUtil.getBrightness(this)
+    }
+
+    fun addBrightness(view: View) {
+        LogUtil.i("brightness:"+brightness)
+        brightness += 50
+        ScreenBrightUtil.setBrightness(this, brightness.toInt())
+    }
+
+    fun minusBrightness(view: View) {
+        LogUtil.i("brightness:"+brightness)
+        brightness -= 50
+        ScreenBrightUtil.setBrightness(this, brightness.toInt())
     }
 
     private val permissions = arrayOf(
@@ -22,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     )
 
     @SuppressLint("CheckResult")
-    fun test() {
+    fun writeLog() {
         val rxPermissions = RxPermissions(this)
         rxPermissions.request(*permissions)
             .subscribe { granted: Boolean ->
@@ -33,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun checkStrLength(str: String,len:Int): String {
+    fun checkStrLength(str: String, len: Int): String {
         val temp: Int = len - str.length
         var result = str
         if (temp > 0) {
@@ -51,42 +67,42 @@ class MainActivity : AppCompatActivity() {
         val path =
             this.externalCacheDir!!.path + File.separator + "file" + File.separator + filename
         var sb: StringBuffer = StringBuffer()
-            .append(checkStrLength("time",19))
+            .append(checkStrLength("time", 19))
             .append(tab)
-            .append(checkStrLength("writing speed",15))
+            .append(checkStrLength("writing speed", 15))
             .append(tab)
-            .append(checkStrLength("writing times",15))
+            .append(checkStrLength("writing times", 15))
             .append(tab)
-            .append(checkStrLength("reading speed",15))
+            .append(checkStrLength("reading speed", 15))
             .append(tab)
-            .append(checkStrLength("reading times",15))
+            .append(checkStrLength("reading times", 15))
             .append(enter)
             .append("--------------------------------------------------------------------------------------")
         FileUtil.append(path, sb.toString())
-        sb=StringBuffer()
+        sb = StringBuffer()
             .append(enter)
-            .append(checkStrLength(DateUtil.getDateTime(),19))
+            .append(checkStrLength(DateUtil.getDateTime(), 19))
             .append(tab)
-            .append(checkStrLength("100KB/s",15))
+            .append(checkStrLength("100KB/s", 15))
             .append(tab)
-            .append(checkStrLength("100",15))
+            .append(checkStrLength("100", 15))
             .append(tab)
-            .append(checkStrLength("200KB/s",15))
+            .append(checkStrLength("200KB/s", 15))
             .append(tab)
-            .append(checkStrLength("99",15))
+            .append(checkStrLength("99", 15))
 
         FileUtil.append(path, sb.toString())
-        sb=StringBuffer()
+        sb = StringBuffer()
             .append(enter)
-            .append(checkStrLength(DateUtil.getDateTime(),19))
+            .append(checkStrLength(DateUtil.getDateTime(), 19))
             .append(tab)
-            .append(checkStrLength("101KB/s",15))
+            .append(checkStrLength("101KB/s", 15))
             .append(tab)
-            .append(checkStrLength("101",15))
+            .append(checkStrLength("101", 15))
             .append(tab)
-            .append(checkStrLength("201KB/s",15))
+            .append(checkStrLength("201KB/s", 15))
             .append(tab)
-            .append(checkStrLength("100",15))
+            .append(checkStrLength("100", 15))
 
         FileUtil.append(path, sb.toString())
     }
