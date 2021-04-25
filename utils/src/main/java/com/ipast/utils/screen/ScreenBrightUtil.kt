@@ -23,7 +23,17 @@ object ScreenBrightUtil {
         if (brightness == -1) {
             lp.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
         } else {
-            lp.screenBrightness = (if (brightness <= 0) 1 else brightness) / 255f
+            when {
+                brightness <= 0 -> {
+                    lp.screenBrightness = 0f
+                }
+                brightness > 255 -> {
+                    lp.screenBrightness = 1f
+                }
+                else -> {
+                    lp.screenBrightness = brightness / 255f
+                }
+            }
         }
         window.attributes = lp
     }

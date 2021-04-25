@@ -13,22 +13,33 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private var brightness=0;
+    private var brightness = 0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        brightness=ScreenBrightUtil.getBrightness(this)
+        initBrightness()
+    }
+
+    private fun initBrightness() {
+        brightness = ScreenBrightUtil.getBrightness(this)
     }
 
     fun addBrightness(view: View) {
-        LogUtil.i("brightness:"+brightness)
+
+        LogUtil.i("brightness:" + brightness)
         brightness += 50
+        if (brightness > 255) {
+            brightness = 255
+        }
         ScreenBrightUtil.setBrightness(this, brightness.toInt())
     }
 
     fun minusBrightness(view: View) {
-        LogUtil.i("brightness:"+brightness)
+        LogUtil.i("brightness:" + brightness)
         brightness -= 50
+        if (brightness <= 0) {
+            brightness = 0
+        }
         ScreenBrightUtil.setBrightness(this, brightness.toInt())
     }
 
