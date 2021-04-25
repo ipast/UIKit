@@ -15,13 +15,14 @@ object SoftInputUtil {
      *
      * @param editText
      */
+    @JvmStatic
     fun hide(context: Context, editText: EditText) {
         val imm = getInputMethodManager(context)
         if (imm != null) {
             imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }
-
+    @JvmStatic
     fun show(context: Context, editText: EditText) {
         editText.requestFocus()
         editText.postDelayed({
@@ -31,7 +32,7 @@ object SoftInputUtil {
             }
         }, 200)
     }
-
+    @JvmStatic
     fun getInputMethodManager(context: Context): InputMethodManager {
         return context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }

@@ -15,6 +15,7 @@ object StringUtil {
     /**
      * 判断字符串是否有值，如果为null或者是空字符串或者只有空格或者为"null"字符串，则返回true，否则则返回false
      */
+    @JvmStatic
     fun isEmpty(value: String): Boolean {
         if (value != null && !"".equals(value.trim(), true)
             && !"null".equals(value.trim(), true)
@@ -31,6 +32,7 @@ object StringUtil {
      * @param email
      * @return
      */
+    @JvmStatic
     fun isEmail(email: String): Boolean {
         val str =
             "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
@@ -44,6 +46,7 @@ object StringUtil {
      * @param phoneNumber
      * @return
      */
+    @JvmStatic
     fun isPhoneNumberValid(phoneNumber: String): Boolean {
         var isVaild = false
         val expression = "^1[3|4|5|6|7|8|9][0-9]\\\\d{8}\$"
@@ -61,7 +64,7 @@ object StringUtil {
      * @param phoneNumber String
      * @return Boolean
      */
-
+    @JvmStatic
     fun isPhoneNumberValid(areaCode: String, phoneNumber: String): Boolean {
         if (TextUtils.isEmpty(phoneNumber)) {
             return false
@@ -88,7 +91,7 @@ object StringUtil {
      * @param number String
      * @return Boolean
      */
-
+    @JvmStatic
     fun isNumber(number: String): Boolean {
         return try {
             val p = Pattern.compile("\\d+")
@@ -105,6 +108,7 @@ object StringUtil {
      * @param str String
      * @return Int
      */
+    @JvmStatic
     fun getStringLength(str: String?): Int {
         if (TextUtils.isEmpty(str)) {
             return 0
@@ -126,6 +130,7 @@ object StringUtil {
      * @param str
      * @return 字符串ems
      */
+    @JvmStatic
     fun getEms(str: String?): Int {
         if (TextUtils.isEmpty(str)) {
             return 0

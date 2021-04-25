@@ -22,6 +22,7 @@ object FileUtil {
      * @param path String?
      * @return Boolean
      */
+    @JvmStatic
     fun isFileExist(path: String?): Boolean {
         return !TextUtils.isEmpty(path) && File(path).exists()
     }
@@ -31,6 +32,7 @@ object FileUtil {
      * @param srcPath String
      * @return Long
      */
+    @JvmStatic
     fun getFileLength(srcPath: String?): Long {
         if (TextUtils.isEmpty(srcPath)) {
             return -1
@@ -48,6 +50,7 @@ object FileUtil {
      * @param filename
      * @return
      */
+    @JvmStatic
     fun getExtensionName(filename: String?): String {
         if (filename != null && filename.isNotEmpty()) {
             val dot = filename.lastIndexOf('.')
@@ -64,6 +67,7 @@ object FileUtil {
      * @param filePath
      * @return
      */
+    @JvmStatic
     fun getMimeType(filePath: String): String {
         var type: String = ""
         if (TextUtils.isEmpty(filePath)) {
@@ -87,6 +91,7 @@ object FileUtil {
      * @param dstPath
      * @return
      */
+    @JvmStatic
     fun copy(srcPath: String, dstPath: String): Long {
         if (TextUtils.isEmpty(srcPath) || TextUtils.isEmpty(dstPath)) {
             return -1
@@ -124,7 +129,7 @@ object FileUtil {
         }
         return -1
     }
-
+    @JvmStatic
     fun append(path: String, content: String): Long {
         return append(content.toByteArray(), path)
     }
@@ -136,6 +141,7 @@ object FileUtil {
      * @param filePath
      * @return 如果保存失败, 则返回-1
      */
+    @JvmStatic
     fun append(data: ByteArray, filePath: String): Long {
         if (TextUtils.isEmpty(filePath)) {
             return -1
@@ -166,6 +172,7 @@ object FileUtil {
      * @param content
      * @return
      */
+    @JvmStatic
     fun save(path: String?, content: String): Long {
         return save(content.toByteArray(), path)
     }
@@ -177,6 +184,7 @@ object FileUtil {
      * @param filePath
      * @return 如果保存失败, 则返回-1
      */
+    @JvmStatic
     fun save(data: ByteArray?, filePath: String?): Long {
         if (TextUtils.isEmpty(filePath)) {
             return -1
@@ -206,6 +214,7 @@ object FileUtil {
      * @param dstFilePath
      * @return
      */
+    @JvmStatic
     fun move(srcFilePath: String?, dstFilePath: String?): Boolean {
         if (TextUtils.isEmpty(srcFilePath) || TextUtils.isEmpty(dstFilePath)) {
             return false
@@ -229,6 +238,7 @@ object FileUtil {
      * @param filePath
      * @return
      */
+    @JvmStatic
     fun create(filePath: String?): File? {
         if (TextUtils.isEmpty(filePath)) {
             return null
@@ -254,6 +264,7 @@ object FileUtil {
      * @param size
      * @return
      */
+    @JvmStatic
     fun getFormatSize(size: Double): String {
         return getFormatSize(size,2)
     }
@@ -264,7 +275,7 @@ object FileUtil {
      * @param precision Int 精度
      * @return String
      */
-
+    @JvmStatic
     fun getFormatSize(size: Double, precision: Int): String {
         val kiloByte = size / 1024
         if (kiloByte <= 0) {
@@ -299,6 +310,7 @@ object FileUtil {
      * @param filePath 文件path
      * @return 删除结果
      */
+    @JvmStatic
     fun delFile(filePath: String?): Boolean {
         if (TextUtils.isEmpty(filePath))
             return false
@@ -315,6 +327,7 @@ object FileUtil {
      * @param path 文件夹完整绝对路径
      * @return 删除结果
      */
+    @JvmStatic
     fun delAllFile(path: String?): Boolean {
         var flag = false
         if (TextUtils.isEmpty(path)) {
@@ -352,6 +365,7 @@ object FileUtil {
      *
      * @param folderPath 文件夹完整绝对路径
      */
+    @JvmStatic
     fun delFolder(folderPath: String) {
         try {
             delAllFile(folderPath)
@@ -367,6 +381,7 @@ object FileUtil {
      * 获取当前时间的文件名前缀
      * @return String
      */
+    @JvmStatic
     fun getFileNamePrefix(): String {
         return DateUtil.formatDate("yyyyMMddHHmmss")
     }
@@ -375,6 +390,7 @@ object FileUtil {
      * 获取随机文件名
      * @return
      */
+    @JvmStatic
     fun getRandomFileName(): String {
 
         val random = Random().nextInt(100)

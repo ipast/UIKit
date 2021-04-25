@@ -17,6 +17,7 @@ object ScreenBrightUtil {
      * @param context Activity
      * @param brightness Int 范围:0-255
      */
+    @JvmStatic
     fun setBrightness(context: Activity, brightness: Int) {
         val window = context.window
         val lp = window.attributes
@@ -42,6 +43,7 @@ object ScreenBrightUtil {
      *获取系统屏幕亮度
      * @param context Activity
      */
+    @JvmStatic
     fun getBrightness(context: Activity): Int {
         val cr: ContentResolver? = context.contentResolver
         return Settings.System.getInt(cr, Settings.System.SCREEN_BRIGHTNESS)

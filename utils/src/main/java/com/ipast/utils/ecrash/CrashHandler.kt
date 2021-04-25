@@ -25,7 +25,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
         // 崩溃日志存储位置及文件
         protected const val FILE_NAME_CRASH = "crash_"
         protected const val FILE_NAME_SUFFIX = ".log"
-
+        @JvmStatic
         val instance: CrashHandler by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             CrashHandler()
         }

@@ -39,6 +39,7 @@ object DateUtil {
      * 获取当前时间的毫秒数
      * @return Long
      */
+    @JvmStatic
     fun getMillis(): Long {
         return System.currentTimeMillis()
     }
@@ -47,6 +48,7 @@ object DateUtil {
      * 获取当前时间字符串
      * @return String
      */
+    @JvmStatic
     fun getTime(): String {
         return getDate(Date(), FORMAT_TIME)
     }
@@ -55,6 +57,7 @@ object DateUtil {
      * 获取当前日期和时间字符串
      * @return String
      */
+    @JvmStatic
     fun getDateTime(): String {
         return getDate(Date(), FORMAT_DATE_TIME)
     }
@@ -63,6 +66,7 @@ object DateUtil {
      * 获取当前日期字符串
      * @return String
      */
+    @JvmStatic
     fun getDate(): String {
         return getDate(Date(), FORMAT_DATE_)
     }
@@ -72,6 +76,7 @@ object DateUtil {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     fun getDate(pattern: String): String {
         return formatDate(Date(), pattern)
     }
@@ -82,6 +87,7 @@ object DateUtil {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun getDate(millis: Long, pattern: String): String {
         return formatDate(millis, pattern)
@@ -93,6 +99,7 @@ object DateUtil {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun getDate(date: Date, pattern: String): String {
         return formatDate(date, pattern)
@@ -102,6 +109,7 @@ object DateUtil {
      * 获取当前日期的年份
      * @return String
      */
+    @JvmStatic
     fun getYear(): String {
         return getCalendar(Calendar.YEAR).toString()
     }
@@ -110,6 +118,7 @@ object DateUtil {
      * 获取当前日期的月份
      * @return String
      */
+    @JvmStatic
     fun getMonth(): String {
         return (getCalendar(Calendar.MONTH) + 1).toString()
     }
@@ -118,6 +127,7 @@ object DateUtil {
      * 获取当前日期的月份
      * @return String
      */
+    @JvmStatic
     fun getMonthDouble(): String {
         return (getCalendar(Calendar.MONTH) + 1).toString()
     }
@@ -126,6 +136,7 @@ object DateUtil {
      * 获取当前月份的日期
      * @return String
      */
+    @JvmStatic
     fun getDay(): String {
         return getCalendar(Calendar.DAY_OF_MONTH).toString()
     }
@@ -135,6 +146,7 @@ object DateUtil {
      * @param field Int
      * @return Int
      */
+    @JvmStatic
     fun getCalendar(field: Int): Int {
         return Calendar.getInstance().get(field)
     }
@@ -143,6 +155,7 @@ object DateUtil {
      * 获取周几
      * @return String
      */
+    @JvmStatic
     fun getWeek(): String {
         return formatDate("E")
     }
@@ -152,6 +165,7 @@ object DateUtil {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun formatDate(pattern: String): String {
         val format = SimpleDateFormat(pattern)
@@ -164,6 +178,7 @@ object DateUtil {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun formatDate(date: Date, pattern: String): String {
         val format = SimpleDateFormat(pattern)
@@ -176,6 +191,7 @@ object DateUtil {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("SimpleDateFormat")
     fun formatDate(millis: Long, pattern: String): String {
         val format = SimpleDateFormat(pattern)
@@ -187,6 +203,7 @@ object DateUtil {
      * @param millis Long
      * @return Boolean
      */
+    @JvmStatic
     fun isToady(millis: Long): Boolean {
         val c1 = Calendar.getInstance()
         c1.timeInMillis = millis
@@ -202,6 +219,7 @@ object DateUtil {
      * @param num   相隔天数
      * @return Date 日期
      */
+    @JvmStatic
     fun nextDay(num: Int): Date {
         val curr = Calendar.getInstance()
         curr[Calendar.DAY_OF_MONTH] = curr[Calendar.DAY_OF_MONTH] + num
@@ -213,6 +231,7 @@ object DateUtil {
      * @param date 给定的日期
      * @return long 日期间隔天数，正数表示给定日期在当前日期之前，负数表示在当前日期之后
      */
+    @JvmStatic
     fun pastDays(date: Date): Long {
         val currentMillis = getMillis()
         return currentMillis - date.time / MILLISECOND_PER_DAY
@@ -223,6 +242,7 @@ object DateUtil {
      * @param num   间隔月数
      * @return Date 日期
      */
+    @JvmStatic
     fun nextMonth(num: Int): Date {
         val curr = Calendar.getInstance()
         curr[Calendar.MONTH] = curr[Calendar.MONTH] + num
@@ -234,6 +254,7 @@ object DateUtil {
      * @param num    间隔年数
      * @return Date 日期
      */
+    @JvmStatic
     fun nextYear(num: Int): Date {
         val curr = Calendar.getInstance()
         curr[Calendar.YEAR] = curr[Calendar.YEAR] + num
@@ -245,6 +266,7 @@ object DateUtil {
      * @param date
      * @return Calendar Calendar对象
      */
+    @JvmStatic
     fun getCalendar(date: Date): Calendar {
         val calendar = Calendar.getInstance()
         calendar.time = date

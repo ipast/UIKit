@@ -17,6 +17,7 @@ object LogUtil {
      *
      * @param isDebug
      */
+    @JvmStatic
     fun setIsDebug(isDebug: Boolean) {
         LogUtil.isDebug = isDebug
     }
@@ -63,6 +64,7 @@ object LogUtil {
      * 日志（错误）
      * @param msg
      */
+    @JvmStatic
     fun e(msg: String) {
         if (isDebug) {
             val logHeader = createLogHeader()
@@ -76,6 +78,7 @@ object LogUtil {
      * 日志（信息）
      * @param msg
      */
+    @JvmStatic
     fun i(msg: String) {
         if (isDebug) {
             val logHeader = createLogHeader()
@@ -89,6 +92,7 @@ object LogUtil {
      * 日志（调试）
      * @param msg
      */
+    @JvmStatic
     fun d(msg: String) {
         if (isDebug) {
             val logHeader = createLogHeader()
@@ -102,6 +106,7 @@ object LogUtil {
      * 日志（详细）
      * @param msg
      */
+    @JvmStatic
     fun v(msg: String) {
         if (isDebug) {
             val logHeader = createLogHeader()
@@ -115,6 +120,7 @@ object LogUtil {
      * 日志（警告）
      * @param msg
      */
+    @JvmStatic
     fun w(msg: String) {
         if (isDebug) {
             val logHeader = createLogHeader()
