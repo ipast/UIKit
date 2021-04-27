@@ -13,43 +13,19 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private var brightness = 0;
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initBrightness()
-    }
-
-    private fun initBrightness() {
-        brightness = ScreenBrightUtil.getBrightness(this)
-    }
-
-    fun addBrightness(view: View) {
-
-        LogUtil.i("brightness:" + brightness)
-        brightness += 50
-        if (brightness > 255) {
-            brightness = 255
-        }
-        ScreenBrightUtil.setBrightness(this, brightness.toInt())
-    }
-
-    fun minusBrightness(view: View) {
-        LogUtil.i("brightness:" + brightness)
-        brightness -= 50
-        if (brightness <= 0) {
-            brightness = 0
-        }
-        ScreenBrightUtil.setBrightness(this, brightness.toInt())
-    }
-
+    val tab = "\t"
+    val enter = "\r\n"
     private val permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
 
     @SuppressLint("CheckResult")
-    fun writeLog() {
+    fun writeLog(view: View) {
         val rxPermissions = RxPermissions(this)
         rxPermissions.request(*permissions)
             .subscribe { granted: Boolean ->
@@ -59,24 +35,9 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-
-    fun checkStrLength(str: String, len: Int): String {
-        val temp: Int = len - str.length
-        var result = str
-        if (temp > 0) {
-            for (i in 0 until temp) {
-                result = "$result "
-            }
-        }
-        return result
-    }
-
-    var tab = "\t"
-    var enter = "\r\n"
-    fun save() {
+    private fun save() {
         val filename = FileUtil.getFileNamePrefix() + "_log.txt"
-        val path =
-            this.externalCacheDir!!.path + File.separator + "file" + File.separator + filename
+        val path = this.externalCacheDir!!.path + File.separator + "file" + File.separator + filename
         var sb: StringBuffer = StringBuffer()
             .append(checkStrLength("time", 19))
             .append(tab)
@@ -116,5 +77,16 @@ class MainActivity : AppCompatActivity() {
             .append(checkStrLength("100", 15))
 
         FileUtil.append(path, sb.toString())
+    }
+
+    private fun checkStrLength(str: String, len: Int): String {
+        val temp: Int = len - str.length
+        var result = str
+        if (temp > 0) {
+            for (i in 0 until temp) {
+                result = "$result "
+            }
+        }
+        return result
     }
 }

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -29,6 +30,17 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                output ->
+                    if (output.outputFile.name.contains("release")) {
+                        def fileName = "smartwork"
+                        def date = new Date().format("yyMMdd_HHmm", TimeZone.getTimeZone("GMT+08"))
+                        outputFileName = "${fileName}_V${variant.versionName}_${date}.apk"
+                    }
+            }
     }
 }
 

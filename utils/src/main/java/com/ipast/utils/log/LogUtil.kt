@@ -57,7 +57,7 @@ object LogUtil {
      * @return
      */
     private fun createLog(header: String, log: String): String {
-        return "$header\n================================\n$log\n================================"
+        return ":\n$header\n$log"
     }
 
     /**

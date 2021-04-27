@@ -65,7 +65,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
      * @param e
      * @return
      */
-    protected fun handleException(e: Throwable): Boolean {
+    fun handleException(e: Throwable): Boolean {
         if (isDebug) {
             Log.e(TAG, Log.getStackTraceString(e))
             saveException(e)
