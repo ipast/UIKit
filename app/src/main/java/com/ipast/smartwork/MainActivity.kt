@@ -9,6 +9,7 @@ import com.ipast.utils.date.DateUtil
 import com.ipast.utils.file.FileUtil
 import com.ipast.utils.log.LogUtil
 import com.ipast.utils.screen.ScreenBrightUtil
+import com.ipast.utils.toast.ToastUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
 
@@ -19,9 +20,17 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //ToastUtil.showLong(this@MainActivity,"111")
+        Thread(object : Runnable {
+            override fun run() {
+                 ToastUtil.showLong(this@MainActivity,"111")
+            }
+
+        }).start()
     }
 
     @SuppressLint("CheckResult")
@@ -37,7 +46,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun save() {
         val filename = FileUtil.getFileNamePrefix() + "_log.txt"
-        val path = this.externalCacheDir!!.path + File.separator + "file" + File.separator + filename
+        val path =
+            this.externalCacheDir!!.path + File.separator + "file" + File.separator + filename
         var sb: StringBuffer = StringBuffer()
             .append(checkStrLength("time", 19))
             .append(tab)

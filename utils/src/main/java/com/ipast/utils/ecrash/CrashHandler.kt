@@ -1,5 +1,6 @@
 package com.ipast.utils.ecrash
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -25,6 +26,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
         // 崩溃日志存储位置及文件
         protected const val FILE_NAME_CRASH = "crash_"
         protected const val FILE_NAME_SUFFIX = ".log"
+
         @JvmStatic
         val instance: CrashHandler by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             CrashHandler()
@@ -81,26 +83,27 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
      *
      * @param e
      */
+    @SuppressLint("SimpleDateFormat")
     protected fun saveException(e: Throwable) {
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
             Log.w(TAG, "sdcard unmounted")
             return
         }
-        val dir = mCtx!!.getExternalFilesDir(CRASH_DIR)
+        val dir = mCtx!!.externalCacheDir.toString() + "/" + CRASH_DIR
         val current = System.currentTimeMillis()
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(current))
-        val file = File(dir!!.path + "/" + FILE_NAME_CRASH + time + FILE_NAME_SUFFIX)
+        val file = File(dir!! + "/" + FILE_NAME_CRASH + time + FILE_NAME_SUFFIX)
         val pw = PrintWriter(BufferedWriter(FileWriter(file)))
         pw.println(time)
         collectDeviceInfo(pw)
         pw.println()
         //ex.getCause().printStackTrace(pw);
         e.printStackTrace(pw)
-      /*  var cause = e.cause
-        while (cause != null) {
-            cause.printStackTrace(pw)
-            cause = cause.cause
-        }*/
+        /*  var cause = e.cause
+          while (cause != null) {
+              cause.printStackTrace(pw)
+              cause = cause.cause
+          }*/
         pw.close()
     }
 
