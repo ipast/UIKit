@@ -129,6 +129,7 @@ object FileUtil {
         }
         return -1
     }
+
     @JvmStatic
     fun append(path: String, content: String): Long {
         return append(content.toByteArray(), path)
@@ -259,6 +260,20 @@ object FileUtil {
     }
 
     /**
+     * 创建文件夹
+     * @param folderPath String
+     */
+    fun createFolder(folderPath: String) {
+        if (TextUtils.isEmpty(folderPath)) {
+            return
+        }
+        val f = File(folderPath)
+        if (!f.exists()) {
+            f.mkdirs()
+        }
+    }
+
+    /**
      * 格式化单位
      *
      * @param size
@@ -266,7 +281,7 @@ object FileUtil {
      */
     @JvmStatic
     fun getFormatSize(size: Double): String {
-        return getFormatSize(size,2)
+        return getFormatSize(size, 2)
     }
 
     /**
