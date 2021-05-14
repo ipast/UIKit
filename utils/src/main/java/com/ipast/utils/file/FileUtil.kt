@@ -263,6 +263,7 @@ object FileUtil {
      * 创建文件夹
      * @param folderPath String
      */
+    @JvmStatic
     fun createFolder(folderPath: String) {
         if (TextUtils.isEmpty(folderPath)) {
             return
