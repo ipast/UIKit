@@ -26,7 +26,6 @@ object StringUtil {
     }
 
 
-
     /**
      * 判断邮箱格式是否正确
      * @param email
@@ -141,4 +140,33 @@ object StringUtil {
         return rect.width() / rect.height()
 
     }
+
+    /**
+     * 百分比
+     * @param num Long
+     * @param total Long
+     * @return String
+     */
+    @JvmStatic
+    fun getPercent(num: Long, total: Long): String {
+        return getPercent(num, total, 2)
+    }
+
+    /**
+     *  百分比
+     * @param num Long
+     * @param total Long
+     * @param precision Int
+     * @return String
+     */
+    @JvmStatic
+    fun getPercent(num: Long, total: Long, precision: Int): String {
+        if (num == 0.toLong() || total == 0.toLong()) {
+            return "0%"
+        }
+        val result = (num * 100 / total).toBigDecimal()
+        return result.setScale(precision, BigDecimal.ROUND_HALF_UP)
+            .toPlainString() + "%"
+    }
+
 }
