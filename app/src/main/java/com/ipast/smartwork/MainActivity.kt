@@ -25,12 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //ToastUtil.showLong(this@MainActivity,"111")
-        Thread(object : Runnable {
-            override fun run() {
-                 ToastUtil.showLong(this@MainActivity,"111")
-            }
 
-        }).start()
     }
 
     @SuppressLint("CheckResult")
@@ -39,7 +34,15 @@ class MainActivity : AppCompatActivity() {
         rxPermissions.request(*permissions)
             .subscribe { granted: Boolean ->
                 if (granted) {
-                    save()
+                    Thread(object : Runnable {
+                        override fun run() {
+                            // ToastUtil.showLong(this@MainActivity,"111")
+                            val filename = FileUtil.getFileNamePrefix() + "_test.txt"
+                            val path = externalCacheDir!!.path + File.separator + "file" + File.separator + filename
+                            LogUtil.i("length:"+FileUtil.createDigitalFile(path,1024))
+                        }
+
+                    }).start()
                 }
             }
     }

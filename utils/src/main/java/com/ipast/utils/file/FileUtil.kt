@@ -408,9 +408,51 @@ object FileUtil {
      */
     @JvmStatic
     fun getRandomFileName(): String {
-
         val random = Random().nextInt(100)
         return StringBuffer().append(getFileNamePrefix()).append(random).toString()
+    }
+
+    /**
+     * 创建指定大小的数字文件
+     * @param filePath String
+     * @param length Long
+     * @return Long 生成的文件大小
+     */
+    @JvmStatic
+    fun createDigitalFile(filePath: String, length: Long): Long {
+        if (TextUtils.isEmpty(filePath)) {
+            return -1
+        }
+        if (length == 0.toLong()) {
+            return 0.toLong()
+        }
+        val index = filePath.lastIndexOf('/')
+        val parentPath = filePath.substring(0, index)
+        createFolder(parentPath)
+        val f = File(filePath)
+        var bw: BufferedWriter? = null
+        var i: Long = 0
+        try {
+            val fos = FileOutputStream(f)
+            val writer = OutputStreamWriter(fos)
+            bw = BufferedWriter(writer)
+            val random = Random()
+
+            while (i < length) {
+                val number: String = random.nextInt(100).toString()
+                bw.write(number)
+                i += number.length
+            }
+            bw.flush()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        } finally {
+            if (bw != null) {
+                bw.close()
+            }
+            return i
+        }
+
     }
 
 }
