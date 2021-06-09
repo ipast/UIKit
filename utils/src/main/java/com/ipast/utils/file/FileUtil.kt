@@ -437,18 +437,22 @@ object FileUtil {
             val writer = OutputStreamWriter(fos)
             bw = BufferedWriter(writer)
             val random = Random()
-
             while (i < length) {
                 val number: String = random.nextInt(100).toString()
                 bw.write(number)
                 i += number.length
             }
             bw.flush()
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
+            i = -1
         } finally {
-            if (bw != null) {
-                bw.close()
+            try {
+                if (bw != null) {
+                    bw.close()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
             return i
         }
