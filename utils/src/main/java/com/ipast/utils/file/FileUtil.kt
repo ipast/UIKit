@@ -1,13 +1,17 @@
 package com.ipast.utils.file
 
+import android.os.Build
 import android.text.TextUtils
 import android.webkit.MimeTypeMap
+import androidx.annotation.RequiresApi
 import com.ipast.utils.date.DateUtil
 import java.io.*
 import java.math.BigDecimal
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.util.*
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CountDownLatch
 
 /**
  * @author gang.cheng
@@ -413,7 +417,7 @@ object FileUtil {
     }
 
     /**
-     * 创建指定大小的数字文件
+     * 适用于小文件
      * @param filePath String
      * @param length Long
      * @return Long 生成的文件大小
@@ -459,4 +463,54 @@ object FileUtil {
 
     }
 
+    private fun oneM(): String {
+        val random = Random()
+        val sb = StringBuilder()
+        for (i in 0 until 1024 * 1024) {
+            sb.append(random.nextInt(1000))
+        }
+        return sb.toString()
+    }
+    @JvmStatic
+    @RequiresApi(Build.VERSION_CODES.N)
+    @Throws(java.lang.Exception::class)
+    fun createDigitalFileN(path: String?, sizeM: Int) {
+        val file = File(path)
+        if (!file.exists()) {
+            file.createNewFile()
+        }
+        val fos = FileOutputStream(file)
+        val osw = OutputStreamWriter(fos, "utf-8")
+        val countDownLatch = CountDownLatch(sizeM)
+        for (i in 0 until sizeM) {
+            val c: CompletableFuture<StringBuilder> = oneMN()
+            c.whenComplete { x: StringBuilder?, y: Throwable? ->
+                if (x != null) {
+                    try {
+                        osw.append(x)
+                        osw.flush()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+                countDownLatch.countDown()
+            }
+
+        }
+        countDownLatch.await()
+        osw.close()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun oneMN(): CompletableFuture<StringBuilder> {
+        val r = Random()
+        return CompletableFuture.supplyAsync {
+            val sb = StringBuilder()
+            for (i in 0 until 1024 * 1024) {
+                sb.append(r.nextInt(10))
+            }
+            sb
+        }
+
+    }
 }
