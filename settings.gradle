@@ -1,3 +1,3 @@
-include ':utils'
+include ':library'
 include ':app'
-rootProject.name = "SmartWork"
+rootProject.name = "Utils"

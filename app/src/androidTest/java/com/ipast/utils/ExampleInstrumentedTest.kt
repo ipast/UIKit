@@ -1,4 +1,4 @@
-package com.ipast.smartwork
+package com.ipast.utils
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

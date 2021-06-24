@@ -1,4 +1,4 @@
-package com.ipast.smartwork
+package com.ipast.utils
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.ipast.utils.date.DateUtil
 import com.ipast.utils.file.FileUtil
 import com.ipast.utils.log.LogUtil
 import com.tbruyelle.rxpermissions2.RxPermissions

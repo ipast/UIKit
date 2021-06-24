@@ -1,4 +1,4 @@
-package com.ipast.smartwork;
+package com.ipast.utils;
 
 import com.ipast.utils.log.LogUtil;
 
