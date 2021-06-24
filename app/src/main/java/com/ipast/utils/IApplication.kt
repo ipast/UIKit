@@ -1,4 +1,4 @@
-package com.ipast.smartwork
+package com.ipast.utils
 
 import android.app.Application
 import com.ipast.utils.ecrash.CrashHandler
