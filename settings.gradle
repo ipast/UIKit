@@ -1,4 +1,3 @@
-include ':tab'
 include ':utils'
 include ':app'
 rootProject.name = "SmartWork"
