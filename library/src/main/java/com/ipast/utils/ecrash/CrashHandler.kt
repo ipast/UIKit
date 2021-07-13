@@ -89,7 +89,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
             Log.w(TAG, "sdcard unmounted")
             return
         }
-        val dir = mCtx!!.externalCacheDir.toString() + "/" + CRASH_DIR
+        val dir = mCtx!!.getExternalFilesDir(CRASH_DIR)!!.absolutePath
         val current = System.currentTimeMillis()
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(current))
         val file = File(dir!! + "/" + FILE_NAME_CRASH + time + FILE_NAME_SUFFIX)

@@ -4,13 +4,16 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.ipast.utils.ecrash.CrashHandler
 import com.ipast.utils.file.FileUtil
 import com.ipast.utils.log.LogUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
+import java.lang.NullPointerException
 
 class MainActivity : AppCompatActivity() {
     val tab = "\t"
@@ -23,51 +26,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //ToastUtil.showLong(this@MainActivity,"111")
+        test()
+    }
+
+    fun throwException() {
+        var tt:String ?= null
+        Handler().postDelayed(
+            Runnable { tt!!.length},
+            1000
+        )
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("CheckResult")
-    fun writeLog(view: View) {
+    fun test() {
         val rxPermissions = RxPermissions(this)
         rxPermissions.request(*permissions)
             .subscribe { granted: Boolean ->
                 if (granted) {
-
-                    val now = System.currentTimeMillis();
-                    val filename = FileUtil.getFileNamePrefix() + "_test.txt"
-                    val path =
-                        externalCacheDir!!.path + File.separator + filename
-                    LogUtil.i("开始创建文件:$path")
-
-                   /* FileUtils.createBigDigitalFile(
-                        path,
-                        256,
-                        object : OnFileCreateCallback {
-                            override fun onCreateSuccess(f: File?) {
-                                val end = System.currentTimeMillis()
-                                val duration = end - now
-                                LogUtil.i(
-                                    "duration:" + duration
-                                )
-                            }
-
-                            override fun onCreateFailed() {
-                                LogUtil.i("onCreateFailed")
-                            }
-
-                        })*/
-
-                    /* LogUtil.i(
-                         "length:" + FileUtil.createDigitalFileN(
-                             path, 256
-                         )
-                     )*/
-                    /* val end = System.currentTimeMillis()
-                     val duration = end - now
-                     LogUtil.i("duration:" + duration / 1000)*/
-
+                    //throwException()
+                    CrashHandler.instance.handleException(Throwable("test crash handler"))
                 }
             }
     }
