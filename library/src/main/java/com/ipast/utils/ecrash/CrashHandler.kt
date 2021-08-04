@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import com.ipast.utils.file.FileUtil
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -37,10 +38,17 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
     private var isDebug: Boolean = true//是否为debug模式,debug模式下将日志保存到SD卡中
     private var mDefaultCrashHandler: Thread.UncaughtExceptionHandler? = null
     private var mCtx: Context? = null
+    private var filepath: String? = null
 
     fun init(context: Context, isDebug: Boolean) {
+        val path = context.getExternalFilesDir(CRASH_DIR)!!.absolutePath
+        init(context, path, isDebug)
+    }
+
+    fun init(context: Context, filepath: String, isDebug: Boolean) {
         this.mCtx = context.applicationContext
-        this.isDebug = isDebug;
+        this.filepath = filepath
+        this.isDebug = isDebug
         this.mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler(this)
     }
@@ -79,7 +87,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
 
     /**
      * 保存异常信息到SD卡
-     * 保存路径：mnt/sdcard/Android/data/{packageName}/files/crash/
+     * 默认保存路径：mnt/sdcard/Android/data/{packageName}/files/crash/
      *
      * @param e
      */
@@ -89,10 +97,11 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
             Log.w(TAG, "sdcard unmounted")
             return
         }
-        val dir = mCtx!!.getExternalFilesDir(CRASH_DIR)!!.absolutePath
+       // val dir = mCtx!!.getExternalFilesDir(CRASH_DIR)!!.absolutePath
         val current = System.currentTimeMillis()
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(current))
-        val file = File(dir!! + "/" + FILE_NAME_CRASH + time + FILE_NAME_SUFFIX)
+        FileUtil.createFolder(filepath!!)
+        val file = File(filepath!! + "/" + FILE_NAME_CRASH + time + FILE_NAME_SUFFIX)
         val pw = PrintWriter(BufferedWriter(FileWriter(file)))
         pw.println(time)
         collectDeviceInfo(pw)

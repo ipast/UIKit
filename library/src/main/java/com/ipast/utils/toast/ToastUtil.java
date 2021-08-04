@@ -31,12 +31,12 @@ public class ToastUtil {
         }
     }
 
-    private static  void postToMainThread(Runnable paramRunnable) {
+    private static void postToMainThread(Runnable paramRunnable) {
         if (ThreadUtil.isMainThread()) {
             paramRunnable.run();
         } else {
             if (mHandler == null) {
-                mHandler =  new Handler(Looper.getMainLooper());
+                mHandler = new Handler(Looper.getMainLooper());
             }
             mHandler.post(paramRunnable);
         }
