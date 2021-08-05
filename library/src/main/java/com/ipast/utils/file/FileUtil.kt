@@ -124,12 +124,8 @@ object FileUtil {
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
-            try {
-                fcin?.close()
-                fcout?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            IOUtil.closeQuietly(fcin)
+            IOUtil.closeQuietly(fcout)
         }
         return -1
     }
@@ -451,13 +447,7 @@ object FileUtil {
             e.printStackTrace()
             i = -1
         } finally {
-            try {
-                if (bw != null) {
-                    bw.close()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            IOUtil.closeQuietly(bw)
             return i
         }
 
