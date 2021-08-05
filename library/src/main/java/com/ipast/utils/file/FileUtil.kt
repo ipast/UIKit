@@ -124,8 +124,7 @@ object FileUtil {
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
-            IOUtil.closeQuietly(fcin)
-            IOUtil.closeQuietly(fcout)
+            IOUtil.closeQuietly(*arrayOf(fcin, fcout))
         }
         return -1
     }
