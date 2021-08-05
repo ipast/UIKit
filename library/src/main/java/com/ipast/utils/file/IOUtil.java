@@ -1,31 +1,13 @@
 package com.ipast.utils.file;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class IOUtil {
-    public static void close(Closeable closeable) throws IOException {
-        if (closeable != null) {
-            closeable.close();
-        }
-    }
 
-    public static void closeQuietly(Closeable closeable) {
-        try {
-            close(closeable);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void close(Closeable[] paramArrayOfCloseable)
+    public static void close(Closeable... paramArrayOfCloseable)
             throws IOException {
         if (paramArrayOfCloseable != null) {
             int i = paramArrayOfCloseable.length;
@@ -38,7 +20,7 @@ public class IOUtil {
         }
     }
 
-    public static void closeQuietly(Closeable[] paramArrayOfCloseable) {
+    public static void closeQuietly(Closeable... paramArrayOfCloseable) {
         try {
             close(paramArrayOfCloseable);
         } catch (IOException e) {
