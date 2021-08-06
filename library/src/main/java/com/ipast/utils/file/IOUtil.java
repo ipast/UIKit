@@ -7,8 +7,7 @@ import java.io.InputStream;
 
 public class IOUtil {
 
-    public static void close(Closeable... paramArrayOfCloseable)
-            throws IOException {
+    public static void close(Closeable... paramArrayOfCloseable) throws IOException {
         if (paramArrayOfCloseable != null) {
             int i = paramArrayOfCloseable.length;
             for (int j = 0; j < i; j++) {
