@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Process;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,6 +25,8 @@ import static android.content.Context.ACTIVITY_SERVICE;
 public class ProcessUtil {
 
     /**
+     * 是否是主进程
+     *
      * @param context
      * @return
      */
@@ -37,6 +41,8 @@ public class ProcessUtil {
     }
 
     /**
+     * 获取当前进程名
+     *
      * @param context
      * @return
      */
@@ -139,15 +145,27 @@ public class ProcessUtil {
     }
 
     /**
+     * 判断当前应用主进程是否在运行
+     *
      * @param context
      * @return
      */
-    public static boolean isMainProcessLive(Context context) {
-        if (context == null) {
+    public static boolean isMainProcessLive(@NonNull Context context) {
+        String packageName = context.getPackageName();
+        return isProcessLive(context, packageName);
+    }
+
+    /**
+     * 判断指定进程是否在运行
+     *
+     * @param context
+     * @param processName
+     * @return
+     */
+    public static boolean isProcessLive(@NonNull Context context, String processName) {
+        if (TextUtils.isEmpty(processName)) {
             return false;
         }
-
-        String packageName = context.getPackageName();
         ActivityManager am;
         List runningAppProcesses;
         if ((am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE)) != null
@@ -155,16 +173,14 @@ public class ProcessUtil {
             Iterator iterator = runningAppProcesses.iterator();
 
             while (iterator.hasNext()) {
-                if (((ActivityManager.RunningAppProcessInfo) iterator.next()).processName.equals(packageName)) {
+                if (((ActivityManager.RunningAppProcessInfo) iterator.next()).processName.equals(processName)) {
                     return true;
                 }
             }
         }
 
         return false;
-
     }
-
 
     /**
      * 当前应用是否在前台
