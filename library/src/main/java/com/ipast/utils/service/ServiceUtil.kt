@@ -13,7 +13,7 @@ object ServiceUtil {
 
     /**
      * @param service
-     * @return 当前phone service是否在运行
+     * @return 当前 service是否在运行
      */
     @JvmStatic
     fun isRunning(context: Context, service: String): Boolean {

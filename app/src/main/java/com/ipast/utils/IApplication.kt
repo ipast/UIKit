@@ -1,6 +1,7 @@
 package com.ipast.utils
 
 import android.app.Application
+import android.os.Environment
 import com.ipast.utils.ecrash.CrashHandler
 
 /**
@@ -8,9 +9,10 @@ import com.ipast.utils.ecrash.CrashHandler
  * @description :
  * @date :2021/4/19
  */
-class IApplication: Application() {
+class IApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        CrashHandler.instance.init(this,true)
+        val filepath: String = Environment.getExternalStorageDirectory().toString() + "/Utils"
+        CrashHandler.instance.init(this,  true)
     }
 }
