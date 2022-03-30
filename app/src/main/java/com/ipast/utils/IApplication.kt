@@ -14,5 +14,6 @@ class IApplication : Application() {
         super.onCreate()
         val filepath: String = Environment.getExternalStorageDirectory().toString() + "/Utils"
         CrashHandler.instance.init(this,  true)
+        CrashHandler.instance.setThrowException(true)
     }
 }

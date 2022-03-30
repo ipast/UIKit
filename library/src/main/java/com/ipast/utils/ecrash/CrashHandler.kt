@@ -39,6 +39,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
     private var mDefaultCrashHandler: Thread.UncaughtExceptionHandler? = null
     private var mCtx: Context? = null
     private var filepath: String? = null
+    private var isThrowException: Boolean = false//是否将异常抛给系统默认处理类处理
 
     fun init(context: Context, isDebug: Boolean) {
         val path = context.getExternalFilesDir(CRASH_DIR)!!.absolutePath
@@ -51,6 +52,10 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
         this.isDebug = isDebug
         this.mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler(this)
+    }
+
+    fun setThrowException(isThrowException: Boolean) {
+        this.isThrowException = isThrowException
     }
 
     /**
@@ -82,7 +87,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
         } else {
             uploadException2Server(e)
         }
-        return true
+        return !isThrowException
     }
 
     /**
@@ -97,7 +102,7 @@ open class CrashHandler : Thread.UncaughtExceptionHandler {
             Log.w(TAG, "sdcard unmounted")
             return
         }
-       // val dir = mCtx!!.getExternalFilesDir(CRASH_DIR)!!.absolutePath
+        // val dir = mCtx!!.getExternalFilesDir(CRASH_DIR)!!.absolutePath
         val current = System.currentTimeMillis()
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(current))
         FileUtil.createFolder(filepath!!)
