@@ -401,6 +401,13 @@ object FileUtil {
         return DateUtil.formatDate("yyyyMMddHHmmss")
     }
 
+    @JvmStatic
+    fun renameTo(srcFilePath: String, desFolderPath: String) {
+        val srcFile = File(srcFilePath)
+        val desFile = File(desFolderPath + File.separator + srcFile.name)
+        srcFile.renameTo(desFile)
+    }
+
     /**
      * 获取随机文件名
      * @return
@@ -460,9 +467,9 @@ object FileUtil {
         }
         return sb.toString()
     }
+
     @JvmStatic
     @RequiresApi(Build.VERSION_CODES.N)
-    @Throws(java.lang.Exception::class)
     fun createDigitalFileN(path: String?, sizeM: Int) {
         val file = File(path)
         if (!file.exists()) {
